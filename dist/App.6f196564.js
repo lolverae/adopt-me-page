@@ -35160,7 +35160,75 @@ const SearchParams = () => {
 
 var _default = SearchParams;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Pet.jsx":"Pet.jsx","./useBreedList.jsx":"useBreedList.jsx","./results.jsx":"results.jsx","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Details.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Pet.jsx":"Pet.jsx","./useBreedList.jsx":"useBreedList.jsx","./results.jsx":"results.jsx","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Carousel.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = require("react");
+
+var _jsxRuntime = require("react/jsx-runtime");
+
+class Carousel extends _react.Component {
+  constructor() {
+    super();
+    this.state = {
+      active: 0
+    };
+  } //   state = { active: 0 };
+
+
+  static defaultProps = {
+    images: ["http://pets-images.dev-apis.com/pets/none.jpg"]
+  };
+  handleIndexClick = event => {
+    this.setState({
+      active: +event.target.dataset.index
+    });
+  };
+
+  render() {
+    const {
+      active
+    } = this.state;
+    const {
+      images
+    } = this.props;
+    return (
+      /*#__PURE__*/
+      (0, _jsxRuntime.jsxs)("div", {
+        className: "carousel",
+        children: [
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("img", {
+          src: images[active],
+          alt: "animal"
+        }),
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("div", {
+          className: "carousel-smaller",
+          children: images.map((photo, index) =>
+          /*#__PURE__*/
+          (0, _jsxRuntime.jsx)("img", {
+            src: photo,
+            "data-index": index,
+            onClick: this.handleIndexClick,
+            className: index === active ? "active" : "",
+            alt: "animal thumbnail"
+          }, photo))
+        })]
+      })
+    );
+  }
+
+}
+
+var _default = Carousel;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"Details.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35172,7 +35240,11 @@ var _react = require("react");
 
 var _reactRouterDom = require("react-router-dom");
 
+var _Carousel = _interopRequireDefault(require("./Carousel.jsx"));
+
 var _jsxRuntime = require("react/jsx-runtime");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class Details extends _react.Component {
   constructor() {
@@ -35186,25 +35258,44 @@ class Details extends _react.Component {
     const res = await fetch(`http://pets-v2.dev-apis.com/pets?id=${this.props.match.params.id}`);
     const json = await res.json();
     this.setState(Object.assign({
-      loading: false
+      loading: false,
+      name: json.pets[0].name,
+      breed: json.pets[0].breed,
+      animal: json.pets[0].animal,
+      city: json.pets[0].city,
+      state: json.pets[0].state,
+      description: json.pets[0].description
     }, json.pets[0]));
   }
 
   render() {
-    console.log(this.state);
+    if (this.state.loading) {
+      return (
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("h2", {
+          children: "loading"
+        })
+      );
+    }
+
     const {
       animal,
       breed,
       city,
       state,
       description,
-      name
+      name,
+      images
     } = this.state;
     return (
       /*#__PURE__*/
-      (0, _jsxRuntime.jsx)("div", {
+      (0, _jsxRuntime.jsxs)("div", {
         className: "details",
-        children:
+        children: [
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)(_Carousel.default, {
+          images: images
+        }), ";",
         /*#__PURE__*/
         (0, _jsxRuntime.jsxs)("div", {
           children: [
@@ -35224,7 +35315,7 @@ class Details extends _react.Component {
           (0, _jsxRuntime.jsx)("p", {
             children: description
           })]
-        })
+        })]
       })
     );
   }
@@ -35234,7 +35325,7 @@ class Details extends _react.Component {
 var _default = (0, _reactRouterDom.withRouter)(Details);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"App.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./Carousel.jsx":"Carousel.jsx","react/jsx-runtime":"../node_modules/react/jsx-runtime.js"}],"App.jsx":[function(require,module,exports) {
 "use strict";
 
 var _reactDom = require("react-dom");
@@ -35324,7 +35415,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57850" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61188" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
