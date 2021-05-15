@@ -35199,15 +35199,24 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const App = () => {
   return (
     /*#__PURE__*/
-    (0, _jsxRuntime.jsxs)("div", {
-      children: [
+    (0, _jsxRuntime.jsx)("div", {
+      children:
       /*#__PURE__*/
-      (0, _jsxRuntime.jsx)("h1", {
-        children: "Adopt Me!"
-      }),
-      /*#__PURE__*/
-      (0, _jsxRuntime.jsx)(_reactRouterDom.BrowserRouter, {
-        children:
+      (0, _jsxRuntime.jsxs)(_reactRouterDom.BrowserRouter, {
+        children: [
+        /*#__PURE__*/
+        (0, _jsxRuntime.jsx)("header", {
+          children:
+          /*#__PURE__*/
+          (0, _jsxRuntime.jsx)(_reactRouterDom.Link, {
+            to: "/",
+            children:
+            /*#__PURE__*/
+            (0, _jsxRuntime.jsx)("h1", {
+              children: "Adopt Me!"
+            })
+          })
+        }),
         /*#__PURE__*/
         (0, _jsxRuntime.jsxs)(_reactRouterDom.Switch, {
           children: [
@@ -35225,8 +35234,8 @@ const App = () => {
             /*#__PURE__*/
             (0, _jsxRuntime.jsx)(_SearchParams.default, {})
           })]
-        })
-      })]
+        })]
+      })
     })
   );
 };
