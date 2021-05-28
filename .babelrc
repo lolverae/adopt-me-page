@@ -5,6 +5,21 @@
       {
         "runtime": "automatic"
       }
-    ]
-  ]
+    ],
+    "@babel/preset-env"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "node": "current"
+            }
+          }
+        ]
+      ]
+    }
+  }
 }
